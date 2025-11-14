@@ -4,8 +4,6 @@ public abstract class Item : MonoBehaviour
 {
     public Player Player {get; protected set;}
 
-    public abstract GameObject ItemPrefab {get; }
-
     public abstract void Use();
 
     public virtual void Initialization(Player player)
@@ -15,7 +13,12 @@ public abstract class Item : MonoBehaviour
 
     public virtual void PickUp()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void PlayParticle()
+    {
+        
     }
 
 }

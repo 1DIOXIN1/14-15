@@ -21,6 +21,7 @@ public class Health
         }
 
         CurrentHealth += value;
+        Debug.Log("Текущее хп: " + CurrentHealth);
     }
 
     public void TakeDamage(int value)
@@ -32,5 +33,6 @@ public class Health
         }
         
         CurrentHealth -= value;
+        Debug.Log("Текущее хп: " + CurrentHealth);
     }
 }

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     private float _deadZone = 0.05f;
     
+    private Vector3 _input;
     private Mover _mover;
 
     private void Awake()
@@ -33,27 +34,20 @@ public class Player : MonoBehaviour
         {
             _inventory.UseItem(1); //1
         }
+        _input = new Vector3(Input.GetAxis(HORIZONTAL_AXIS_NAME), 0, Input.GetAxis(VERTICAL_AXIS_NAME));
 
-        Vector3 input = new Vector3(Input.GetAxis(HORIZONTAL_AXIS_NAME), 0, Input.GetAxis(VERTICAL_AXIS_NAME));
-
-        if(input.magnitude <= _deadZone)
+        if(_input.magnitude <= _deadZone)
             return;
 
-        Vector3 normalizedInput = input.normalized;
-
-        _mover.ProcessMoveTo(normalizedInput);
-        _mover.ProcessRotateTo(normalizedInput);
+        _mover.ProcessMoveTo(GetNormalizedDirection());
+        _mover.ProcessRotateTo(GetNormalizedDirection());
     }
 
-    public void ChangeMoveSpeed(float value)
-    {
-        _moveSpeed += value;
-
-        if(_moveSpeed < 0)
-            _moveSpeed = 0;
-    }
+    public void ChangeMoveSpeed(float value) => _mover.ChangeMoveSpeed(value);
 
     public void Heal(int value) => _health.Heal(value);
 
     public void TakeDamage(int value) => _health.TakeDamage(value);
+
+    public Vector3 GetNormalizedDirection() => _input.normalized;
 }

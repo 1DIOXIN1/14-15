@@ -7,7 +7,7 @@ public class Mover
 
     private Transform _charachterTransform;
 
-    public Mover(Transform charachterTransform, float moveSpeed = 2f, float rotationSpeed = 600f)
+    public Mover(Transform charachterTransform, float moveSpeed, float rotationSpeed)
     {
         _charachterTransform = charachterTransform;
         _moveSpeed = moveSpeed;
@@ -27,5 +27,15 @@ public class Mover
         float step = _rotationSpeed * Time.deltaTime;
 
         _charachterTransform.rotation = Quaternion.RotateTowards(_charachterTransform.rotation, lookRotation, step);
+    }
+
+    public void ChangeMoveSpeed(float value)
+    {
+        _moveSpeed += value;
+
+        if(_moveSpeed < 0)
+            _moveSpeed = 0;
+
+        Debug.Log("Текущая скорость: " + _moveSpeed);
     }
 }
